@@ -1,26 +1,35 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
-const path = require('node:path')
+const path = require('path');
+const { app, BrowserWindow } = require('electron');
 
-const createWindow = () => {
+const isDev = process.env.NODE_ENV !== 'developed';
+const isMac = process.platform === 'darwin';
+
+function createMainWindow() {
+
   const mainWindow = new BrowserWindow({
-     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-     }
-  })
-  mainWindow.loadFile('index.html')
+    title: 'Image Resizer',
+    width: isDev ? 1000 : 500,
+    height: 600,
+  });
+
+  //Open Dev Tools if in DEV env
+  if(isDev) {
+    mainWindow.webContents.openDevTools();
+  }
+
+  mainWindow.loadFile(path.join(__dirname, './renderer/index.html'));
 }
 
 app.whenReady().then( () => {
-  
-  ipcMain.on('set-title', (event,title) => {
-    const webContents = event.sender
-    const win = BrowserWindow.fromWebContents(webContents)
-    win.setTitle(title)
-  })
+  createMainWindow();
 
-  createWindow()
-})
+  app.on('activate', () => {
+    if(BrowserWindow.getAllWindows().length === 0)
+      createMainWindow();
+  })
+});
 
 app.on('window-all-closed', () => {
-  if(process.platform !== 'darwin') app.quit()
-})
+  if(!isMac) 
+    app.quit();
+});
