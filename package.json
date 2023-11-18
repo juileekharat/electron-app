@@ -1,5 +1,5 @@
 {
-  "name": "my-electron-project",
+  "name": "electron-app",
   "version": "1.0.0",
   "description": "test app",
   "main": "main.js",
@@ -25,10 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/juileekharat/my-electron-project.git"
+    "url": "git+ssh://git@github.com/juileekharat/electron-app.git"
   },
   "bugs": {
-    "url": "https://github.com/juileekharat/my-electron-project/issues"
+    "url": "https://github.com/juileekharat/electron-app/issues"
   },
-  "homepage": "https://github.com/juileekharat/my-electron-project#readme"
+  "homepage": "https://github.com/juileekharat/electron-app#readme"
 }
